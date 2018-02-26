@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallserver.pfmp.dal.inter.FeedBackDao">
+	<resultMap  type="FeedBackDO"     id="FeedBackMap">
+		<result property="id"            column="id"/>
+		<result property="seqId"         column="seq_id"/>
+		<result property="pickName"         column="pick_name"/>
+		<result property="photo"          column="photo"/>
+		<result property="type"          column="type"/>
+		<result property="content"      column="content"/>
+		<result property="status"     column="status"/>
+		<result property="level"     column="level"/>
+		<result property="upId"     column="up_id"/>
+		<result property="createTime"    column="create_time"/>
+	</resultMap>
+
+	<insert id="insert" parameterType="FeedBackDO" useGeneratedKeys="true" keyProperty="id">
+		insert into feed_back_info
+		(`seq_id`,`pick_name`,`photo`, `type`,`content`,`status`,`level`)
+		values
+		(#{seqId},#{pickName},#{photo},#{type},#{content},0,#{level})
+	</insert>
+
+	<update id="update" parameterType="Integer">
+		UPDATE feed_back_info
+		SET status = 1
+		WHERE id = #{id}
+	</update>
+
+	<select id="query" parameterType="String" resultMap="FeedBackMap">
+		SELECT * FROM feed_back_info
+		ORDER BY create_time DESC
+	</select>
+
+</mapper>

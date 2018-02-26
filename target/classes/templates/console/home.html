@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>钱呢，后台管理中心</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/home.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/console/home.js}"></script>
+    <script>
+        $.ajax({
+            url: "/msg/query/size",
+            type: "get",
+            success:function(data){
+                var data = eval(data);
+                if (data.success){
+                    $("#newMsgCount").html(data.data);
+                } else {
+                    location.href="/to/common/login";
+                }
+            }, error:function () {
+                location.href="/to/common/login";
+            }
+        })
+        $.ajax({
+            url: "/user/query/size",
+            type: "get",
+            success:function(data){
+                var data = eval(data);
+                if (data.success){
+                    $("#userCount").html(data.data+"人");
+                } else {
+                    location.href="/to/common/login";
+                }
+            }, error:function () {
+                location.href="/to/common/login";
+            }
+        })
+    </script>
+</head>
+<body style="background-color: #ECF0EF; overflow: hidden"  class="layui-layout-body">
+    <div class="head-div">
+        <div class="head-info-div">
+            <div onmouseover="layer.tips('<a href=\'/user/out\' style=\'color: white\'>退出登录</a>', '.user-info-a', {tips: [3, '#3c3c3c']});" class="user-info-a"><img th:src="@{/images/photo/default.png}" class="photo" id="photo"><span id="pickName">...</span></span></div>
+            <span class="icon icon-caret-down"></span>
+        </div>
+        <div class="head-info-div">
+            <a onclick="changeMenuBody('/to/console/message')"><span class="icon icon-bell"></span>消息中心&nbsp;&nbsp;<span class="layui-badge" id="newMsgCount">0</span></a>
+        </div>
+        <div class="head-info-div">
+            <span class="icon icon-user"></span>注册用户&nbsp;&nbsp;<span class="layui-badge layui-bg-cyan" id="userCount">0</span>
+        </div>
+        <div class="head-info-div">
+            <!--<span class="layui-badge layui-bg-green">内测版</span>-->
+            <span class="layui-badge">测试环境</span>
+        </div>
+    </div>
+
+    <div class="menu-div">
+        <div class="logo-div">
+            <a onclick="changeMenuBody('/to/console/console', 'm0')"><span class="menu-icon icon-desktop" style="color: #2afffc"></span></a>
+            <span class="icon-reorder toggle-menu-btn" id="toggle-menu-btn1" onmouseover="layer.tips('收缩', '#toggle-menu-btn1');" onmouseout="layer.closeAll();"></span>
+        </div>
+        <div class="menuDiv">
+            <p onclick="changeMenuBody('/to/console/admin', 'm10')" id="m10"onmouseover="showName('管理入口', 'm10')" onmouseout="layer.closeAll();" style="display: none"><span class="menu-icon icon-th-large"></span><span class="menu-name">管理入口</span></p>
+            <!--<p onclick="changeMenuBody('/to/console/console', 'm1')" id="m1" onmouseover="showName('服务配置', 'm1')"onmouseout="layer.closeAll();"><span class="menu-icon icon-cog" ></span><span class="menu-name">服务配置</span></p>-->
+            <p onclick="changeMenuBody('/to/console/user', 'm2')" id="m2"onmouseover="showName('个人资料', 'm2')"onmouseout="layer.closeAll();"><span class="menu-icon icon-user"></span><span class="menu-name">个人资料</span></p>
+            <p onclick="changeMenuBody('/to/console/income', 'm3')" id="m3"onmouseover="showName('账务收入', 'm3')"onmouseout="layer.closeAll();"><span class="menu-icon icon-circle-arrow-down"></span><span class="menu-name">账务收入</span></p>
+            <p onclick="changeMenuBody('/to/console/statistics', 'm4')" id="m4"onmouseover="showName('账务支出', 'm4')"onmouseout="layer.closeAll();"><span class="menu-icon icon-circle-arrow-up"></span><span class="menu-name">账务支出</span></p>
+            <p onclick="changeMenuBody('/to/console/expenditure', 'm5')" id="m5"onmouseover="showName('统计分析', 'm5')"onmouseout="layer.closeAll();"><span class="menu-icon icon-bar-chart"></span><span class="menu-name">统计分析</span></p>
+            <p onclick="changeMenuBody('/to/console/dynamic', 'm6')" id="m6"onmouseover="showName('动态标签', 'm6')" onmouseout="layer.closeAll();"><span class="menu-icon icon-tags"></span><span class="menu-name">动态标签</span></p>
+            <p onclick="changeMenuBody('/to/console/manageMoney', 'm7')" id="m7"onmouseover="showName('理财技巧', 'm7')" onmouseout="layer.closeAll();"><span class="menu-icon icon-money"></span><span class="menu-name">理财技巧</span></p>
+            <p onclick="changeMenuBody('/to/console/loginLog', 'm9')" id="m9"onmouseover="showName('登录日志', 'm9')" onmouseout="layer.closeAll();"><span class="menu-icon icon-calendar"></span><span class="menu-name">登录日志</span></p>
+            <p onclick="changeMenuBody('/to/console/feedback', 'm8')" id="m8"onmouseover="showName('意见反馈', 'm8')" onmouseout="layer.closeAll();"><span class="menu-icon icon-comments-alt"></span><span class="menu-name">意见反馈</span></p>
+        </div>
+        <div class="menu-btn-div">
+            <span class="icon-reorder toggle-menu-btn2" id="toggle-menu-btn2" onmouseover="layer.tips('展开', '#toggle-menu-btn2');" onmouseout="layer.closeAll();"></span>
+        </div>
+    </div>
+
+    <iframe class="body-iframe" src="/to/console/null"></iframe>
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+
+    var flag_name_menu = false;
+    function showName(title, id){
+        if (flag_name_menu){
+            layer.closeAll();
+            layer.tips(title, '#'+id);
+        }
+    }
+
+    //动态设置框架尺寸
+    $(".body-iframe").css("width", $(window).width()-203);
+    $(".body-iframe").css("height", $(window).height()-70);
+$("#toggle-menu-btn1").on('click', function () {
+    flag_name_menu = true;
+    $(".menuDiv p").css("width", "50px");
+    $(".menu-name").hide();
+    $(".menu-icon").css("margin-right", "0px");
+    $(".menu-div").css("width", "90px");
+    $(".body-iframe").css("left", "100px");
+    $(".body-iframe").css("width", $(window).width()-93);
+    $("#toggle-menu-btn1").hide();
+    $(".menu-btn-div").show();
+})
+$("#toggle-menu-btn2").on('click', function () {
+    flag_name_menu = false;
+    $(".menuDiv p").css("width", "200px");
+    $(".menu-div").css("width", "200px");
+    $(".body-iframe").css("left", "210px");
+    $(".body-iframe").css("width", $(window).width()-203);
+    $(".menu-name").show();
+    $(".menu-icon").css("margin-right", "25px");
+    $("#toggle-menu-btn1").show();
+    $(".menu-btn-div").hide();
+})
+
+//watch web cookie and set body url value
+var url = getCookie(CookieKeyEnum.managerMenuUrl);
+if (!url || null == url || url == ""){
+    $(".body-iframe").attr("src", "/to/console/console");
+} else {
+    $(".body-iframe").attr("src", url);
+}
+
+function changeMenuBody(url, id) {
+    $(".body-iframe").attr("src",url);
+    $(".menuDiv p").css("color", "white");
+    $("#"+id).css("color", "#1cb0ae");
+    clickMenu(url);
+}
+
+</script>
+</html>

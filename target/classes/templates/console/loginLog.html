@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>消息管理</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/manager/message.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/bootstrap.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+    <style>
+        .account-apply-tab{
+            position: relative;
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body style="width: 100%">
+<div class="body-main-title">我的登录日志&nbsp;&nbsp;（<span style="color: red">*如发现异常登录状况，请及时更改密码</span>）</div>
+
+    <div class="body-main-div" style="width: 97%">
+        <div class="body">
+            <table class="account-apply-tab layui-table" id="log-login-user-tab">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>操作</th>
+                    <th>登录ip</th>
+                    <th>地理位置</th>
+                    <th>网络类型</th>
+                    <th>最近登录时间</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <div class="page-div">
+            <div id="page-account-application"></div>
+        </div>
+    </div>
+
+<script th:src="@{/depend/layer/layer.js}"></script>
+<script th:src="@{/depend/layui/layui.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+    layer.load();
+    $.ajax({
+        url: "/monitor/log/login",
+        type: "get",
+        data:{},
+        success: function (data) {
+            layer.closeAll();
+            var data = eval(data).data;
+            $("#log-login-user-tab").children("tbody").empty();
+            $.each(data, function (index, value) {
+                var tr = "<tr>"+
+                    "<td>"+value.pickName+"</td>"+
+                    "<td>"+value.typeStr+"</td>"+
+                    "<td>"+value.ipv4+"</td>"+
+                    "<td>"+value.address+"</td>"+
+                    "<td>"+value.netType+"</td>"+
+                    "<td>"+value.createTimeStr+"</td>";
+                $("#log-login-user-tab").children("tbody").append(tr);
+            })
+        }, error: function () {
+            layer.closeAll();
+            layer.msg("数据加载请求失败！");
+        }
+    })
+
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        laypage.render({
+            elem: 'page-account-application'
+            , count: 100
+            , theme: '#1E9FFF'
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.smallserver.pfmp.service.*"/>
+    <context:property-placeholder location="classpath:config/*.properties" ignore-unresolvable="true" />
+
+    <!-- 数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <!-- 数据库基本信息配置 -->
+        <property name="url" value="${spring.datasource.url}" />
+        <property name="username" value="${datasource.username}" />
+        <property name="password" value="${datasource.password}" />
+        <property name = "driverClassName" value = "${spring.datasource.driver-class-name}" />
+
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="${spring.datasource.initialSize}" />
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${spring.datasource.minIdle}" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="${spring.datasource.maxActive}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${spring.datasource.maxWait}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${spring.datasource.timeBetweenEvictionRunsMillis}" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${spring.datasource.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${spring.datasource.validationQuery}" />
+        <property name="testWhileIdle" value="${spring.datasource.testWhileIdle}" />
+        <property name="testOnBorrow" value="${spring.datasource.testOnBorrow}" />
+        <property name="testOnReturn" value="${spring.datasource.testOnReturn}" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
+        <property name="poolPreparedStatements" value="${spring.datasource.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${spring.datasource.maxPoolPreparedStatementPerConnectionSize}" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="${spring.datasource.filters}" />
+    </bean>
+
+
+    <!-- 创建SqlSessionFactory,同时指定数据源 -->
+    <!-- myBatis文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 配置数据库表对应的java实体类 -->
+        <property name="typeAliasesPackage" value="com.smallserver.pfmp.dal.object"></property>
+        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="mapperLocations" value="classpath:config/mapping/*.xml" />
+    </bean>
+
+    <bean name="smallserverMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.smallserver.pfmp.dal.inter"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- ===================事务定义开始================= -->
+    <!-- Ibatis事务管理器 -->
+
+</beans>

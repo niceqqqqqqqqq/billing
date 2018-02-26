@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>登录</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/console.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+    <script>
+        $.ajax({
+            url: "/session/user",
+            type: "get",
+            success:function(data){
+                var data = eval(data);
+                if (data.success){
+                    $("#pickName").val(data.data.pickName);
+                    $("#password").val(data.data.password);
+                    $("#seqId").val(data.data.seqId);
+                    $("#photo").attr("src",data.data.photo);
+                    if(data.data.email != "" && data.data.email != "undefined"){
+                        $("#email").val(data.data.email);
+                    }
+                } else {
+                    document.parentWindow.location.href="/to/common/login";
+                }
+            }
+        })
+    </script>
+</head>
+<body style="width: 100%;overflow-x: hidden">
+    <div class="body-main-title">个人信息管理</div>
+    <div class="body-menu-btn-div" style="text-align: left; border-bottom: 1px solid whitesmoke; padding-left: 10px">
+        <button class="menu-top-btn"id="newsManagerMenu1" onclick="getMenuBody('newsManagerMenu','newsManagerDiv', 3, 1)" style="border-bottom: 1px solid #dc5462; color: black">个人信息</button>
+        <button class="menu-top-btn"id="newsManagerMenu2" onclick="getMenuBody('newsManagerMenu','newsManagerDiv', 3, 2)">修改密码</button>
+        <button class="menu-top-btn"id="newsManagerMenu3" onclick="getMenuBody('newsManagerMenu','newsManagerDiv', 3, 3)">绑定/修改邮箱</button>
+    </div>
+    <div class="body-main-div">
+        <!--内容-->
+        <div class="body" style="float: left; width: 600px; margin-top: 50px">
+            <div class="menuBody" id="newsManagerDiv1" style="display: block">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">我的头像：</label>
+                        <div class="layui-input-block">
+                           <img th:src="@{/images/photo/default.png}" id="photo" style="width: 30px; float: left;">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">唯一编号：</label>
+                        <div class="layui-input-block">
+                            <input id="seqId" class="layui-input" type="text"  disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">我的账号：</label>
+                        <div class="layui-input-block">
+                            <input id="pickName" class="layui-input" type="text" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">我的密码：</label>
+                        <div class="layui-input-block">
+                            <input id="password" class="layui-input" type="password" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">绑定邮箱：</label>
+                        <div class="layui-input-block">
+                            <input id="email" class="layui-input" type="text" disabled="disabled" value="未绑定,方便第一时间接收福利奥">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联系电话：</label>
+                        <div class="layui-input-block">
+                            <input id="mobile" class="layui-input" type="text" value="暂不支持" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menuBody" id="newsManagerDiv2">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">输旧密码：</label>
+                        <div class="layui-input-block">
+                            <input id="oldPwd" class="layui-input" type="password" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码设置：</label>
+                        <div class="layui-input-block">
+                            <input id="newPwd1" class="layui-input" type="password" placeholder="请设置（6到12位：中文、英文、数字或组合）">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">确认设置：</label>
+                        <div class="layui-input-block">
+                            <input id="newPwd2" class="layui-input" type="password" placeholder="请确认">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn" id="update-pwd-btn">确认修改</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menuBody" id="newsManagerDiv3">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱账号：</label>
+                        <div class="layui-input-block">
+                            <input id="up_email" class="layui-input" type="text" placeholder="请输入邮箱">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码：</label>
+                        <div class="layui-input-block">
+                            <input id="up_email_code" class="layui-input" type="text" placeholder="验证码">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-warm" id="get-update-email-code-btn">获取验证码</button>
+                        <button class="layui-btn" id="update-email-btn">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+    $("#update-pwd-btn").on('click', function () {
+        var oldPwd = $("#oldPwd").val().trim();
+        var newPwd1 = $("#newPwd1").val().trim();
+        var newPwd2 = $("#newPwd2").val().trim();
+        if (oldPwd == ""){
+            layer.msg('旧密码不能为空！', {offset: 't', anim: 6});return;
+        }
+        if (newPwd1 == ""){
+            layer.msg('请设置新密码！', {offset: 't', anim: 6});return;
+        }
+        if (newPwd2 == ""){
+            layer.msg('请确认密码！', {offset: 't', anim: 6});return;
+        }
+        if (newPwd1 != newPwd2){
+            layer.msg('两次密码不一致！', {offset: 't', anim: 6});return;
+        }
+        layer.load();
+        $.ajax({
+            url:"/user/update/pwd",
+            type:"post",
+            data:{
+                "oldPassword": oldPwd,
+                "newPassword": newPwd1
+            },
+            success:function (data) {
+                layer.closeAll();
+                var data = eval(data);
+                if (data.success){
+                    layer.msg("密码修改成功");
+                } else {
+                    layer.msg(data.desc, {offset: 't', anim: 6});return;
+                }
+            },error:function () {
+                layer.closeAll();
+                layer.msg("请求失败！");
+            }
+        })
+    })
+
+
+
+
+    // 邮箱校验规则
+    var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+
+    $("#update-email-btn").on('click', function () {
+        var email = $("#up_email").val().trim();
+        var code = $("#up_email_code").val().trim();
+        if (email==""){
+            layer.msg('邮箱不能为空！', {offset: 't', anim: 6});return;
+        }
+        if(!myReg.test(email)){
+            layer.msg('邮箱格式有误！', {offset: 't', anim: 6});return;
+        }
+        if (code==""){
+            layer.msg('验证码不能为空！', {offset: 't', anim: 6});return;
+        }
+        layer.load();
+        $.ajax({
+            url:"/user/update/email",
+            type:"post",
+            data:{
+                "email": email,
+                "code": code
+            },
+            success:function (data) {
+                layer.closeAll();
+                var data = eval(data);
+                if (data.success){
+                    layer.msg("邮箱绑定成功");
+                } else {
+                    layer.msg(data.desc, {offset: 't', anim: 6});return;
+                }
+            },error:function () {
+                layer.closeAll();
+                layer.msg("请求失败！");
+            }
+        })
+    })
+
+    $("#get-update-email-code-btn").on('click', function () {
+        var email = $("#up_email").val().trim();
+        if (email==""){
+            layer.msg('邮箱不能为空！', {offset: 't', anim: 6});return;
+        }
+        if(!myReg.test(email)){
+            layer.msg('邮箱格式有误！', {offset: 't', anim: 6});return;
+        }
+        controUpEmailCodeBtn();
+        $.ajax({
+            url: "/user/regCode/send",
+            type: "post",
+            data:{
+                "email" : email
+            },
+            success:function(data){
+                layer.closeAll();
+                var data = eval(data);
+                if (data.success){
+                    layer.msg("验证码已发送");
+                } else {
+                    layer.msg(data.desc, {offset: 't', anim: 6});return;
+                }
+            },error:function () {
+                layer.closeAll();
+                layer.msg("请求失败！");
+            }
+        })
+    })
+    var sendTime = 30;
+    function controUpEmailCodeBtn(){
+        if (sendTime > 0){
+            $("#get-update-email-code-btn").attr("disabled", true);
+            $("#get-update-email-code-btn").css("background-color", "#986d36");
+            $("#get-update-email-code-btn").html("剩余时间"+sendTime+"秒");
+            --sendTime;
+            setTimeout("controUpEmailCodeBtn()", 1000);
+        } else {
+            $("#get-update-email-code-btn").attr("disabled", false);
+            $("#get-update-email-code-btn").css("background-color", "#ff9c59");
+            $("#get-update-email-code-btn").html("重新获取验证码");
+            sendTime = 30;
+            return;
+        }
+    }
+
+
+</script>
+</html>

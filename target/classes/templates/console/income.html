@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>登录</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/console.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/income.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+</head>
+<body style="width: 100%;overflow-x: hidden">
+<div class="body-main-title">收入账单管理&nbsp;&nbsp;（<span style="color: red">点击黑色按钮,添加最新收入</span>）</div>
+<div class="body-main-div">
+    <div class="monitor-index-div">
+        <div class="monitor-index-show-div" style="background-color: #fb5948" onclick="queryRecord(-7)">
+            <div class="monitor-index-sign-div">
+                <p class="monitor-index-sign-p"><span class="monitor-index-icon  icon-laptop"></span></p>
+            </div>
+            <div class="monitor-index-data-div">
+                <p class="monitor-index-data-p">近7天收入<br/><b><span class="seven-count">…</span>（元）</b></p>
+            </div>
+        </div>
+        <div class="monitor-index-show-div" style="background-color: #6ba3d2" onclick="queryRecord(-30)">
+            <div class="monitor-index-sign-div">
+                <p class="monitor-index-sign-p"><span class="monitor-index-icon icon-group"></span></p>
+            </div>
+            <div class="monitor-index-data-div">
+                <p class="monitor-index-data-p">近一个月收入<br/><b><span class="month-count">…</span>（元）</b></p>
+            </div>
+        </div>
+        <div class="monitor-index-show-div" style="background-color: #b43a97" onclick="queryRecord(-365)">
+            <div class="monitor-index-sign-div">
+                <p class="monitor-index-sign-p"><span class="monitor-index-icon icon-exchange"></span></p>
+            </div>
+            <div class="monitor-index-data-div">
+                <p class="monitor-index-data-p">近一年收入<br/><b><span class="year-count">…</span>（元）</b></p>
+            </div>
+        </div>
+        <div class="monitor-index-show-div" style="background-color: #24d27a" onclick="queryRecord(1)">
+            <div class="monitor-index-sign-div">
+                <p class="monitor-index-sign-p"><span class="monitor-index-icon icon-cogs"></span></p>
+            </div>
+            <div class="monitor-index-data-div">
+                <p class="monitor-index-data-p">总收入<br/><b><span class="all-count">…</span>（元）</b></p>
+            </div>
+        </div>
+        <button class="monitor-index-show-div" id="addIncomeBtn" style="background-color: #3e3d3f; line-height: 80px; color: white; border: 0px" onclick="$('#add-record-div').fadeIn(300)">
+            资金入账/添加收入
+        </button>
+    </div>
+    <!--内容-->
+    <div  class="layui-form" style="width: 100%; position: relative; float: left; margin-top: 25px; border-top: 18px solid #ECF0EF">
+        <div style="margin-top: 30px; margin-left: 5%; margin-bottom: 0px;text-align: left">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select lay-filter="show_type">
+                            <option value="show_type1">时间轴显示</option>
+                            <option value="show_type2">表格显示</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select id="search_billing_type">
+                            <option value="ALL">全部类型</option>
+                            <option value="PAYROLL" selected="">工资</option>
+                            <option value="FAMILY_ORIGIN">家庭来源</option>
+                            <option value="BONUS">奖金</option>
+                            <option value="ACCOUNT_RECEIVABLE">收账</option>
+                            <option value="BORROW">借入</option>
+                            <option value="HOLIDAY">节日</option>
+                            <option value="OTHER">其他来源</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+        <hr class="layui-bg-gray">
+        <div id="show_type1" style="float: left;width: 100%; margin-top: 30px; text-align: left">
+             <ul class="layui-timeline" id="income-record-ul" style="width: 90%; margin: 30px auto 50px auto; text-align: left"></ul>
+        </div>
+        <!--内容-->
+        <div class="body" style="width: 90%; margin: 50px auto;display: none" id="show_type2">
+            <table class="account-apply-tab layui-table" id="income-record-table">
+                <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>类型</th>
+                    <th>金额(元)</th>
+                    <th width="40%">收入描述</th>
+                    <th>删除</th>
+                    <th>编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="add-record-div layui-form" id="add-record-div">
+    <div class="menuBody" id="updateNoticeBody1" style="display: block; width: 90%">
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账时间：</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="add_income_time" type="text" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账类型：</label>
+            <div class="layui-input-block">
+                <select id="billing_type">
+                    <option value="PAYROLL" selected="">工资</option>
+                    <option value="FAMILY_ORIGIN">家庭来源</option>
+                    <option value="BONUS">奖金</option>
+                    <option value="ACCOUNT_RECEIVABLE">收账</option>
+                    <option value="BORROW">借入</option>
+                    <option value="HOLIDAY">节日</option>
+                    <option value="OTHER">其他来源</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账金额：</label>
+            <div class="layui-input-block">
+                <input id="money_num" class="layui-input" type="text" placeholder="单位：元">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-bottom: 30px">
+            <label class="layui-form-label">入账描述：</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" id="money_desc"></textarea>
+            </div>
+        </div>
+        <hr class="layui-bg-gray" style="margin-bottom: 20px">
+        <p style="text-align: center">
+            <button class="layui-btn layui-btn-sm" id="addIncomeRecordBtn" style="margin-right:50px">
+                <span class="icon icon-plus"></span>添加</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" id="outIncome" onclick="$('#add-record-div').hide()">取消</button>
+        </p>
+    </div>
+</div>
+<div class="add-record-div layui-form" id="edit-record-div">
+    <div class="menuBody" id="updateNoticeBody2" style="display: block; width: 90%">
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账时间：</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="add_income_time_edit" type="text" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date">
+                <input class="layui-input" id="id_edit" type="hidden">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账类型：</label>
+            <div class="layui-input-block">
+                <select id="billing_type_edit">
+                    <option value="PAYROLL" selected="">工资</option>
+                    <option value="FAMILY_ORIGIN">家庭来源</option>
+                    <option value="BONUS">奖金</option>
+                    <option value="ACCOUNT_RECEIVABLE">收账</option>
+                    <option value="BORROW">借入</option>
+                    <option value="HOLIDAY">节日</option>
+                    <option value="OTHER">其他来源</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入账金额：</label>
+            <div class="layui-input-block">
+                <input id="money_num_edit" class="layui-input" type="text" placeholder="单位：元">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-bottom: 30px">
+            <label class="layui-form-label">入账描述：</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" id="money_desc_edit"></textarea>
+            </div>
+        </div>
+        <hr class="layui-bg-gray" style="margin-bottom: 20px">
+        <p style="text-align: center">
+            <button class="layui-btn layui-btn-sm" id="editIncomeRecordBtn" style="margin-right:50px">
+                <span class="icon icon-plus"></span>确认修改</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" id="outIncome_edit" onclick="$('#edit-record-div').hide()">取消</button>
+        </p>
+    </div>
+</div>
+</div>
+<script th:src="@{/depend/layer/layer.js}"></script>
+<script th:src="@{/depend/layui/layui.js}"></script>
+<script th:src="@{/js/console/income.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('select(show_type)', function(data){
+            $("#show_type1").hide();
+            $("#show_type2").hide();
+            $("#"+data.value).fadeIn(400);
+        });
+    });
+</script>
+</html>

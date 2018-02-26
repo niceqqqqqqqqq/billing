@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallserver.pfmp.dal.inter.UserMessageInfoDao">
+	<resultMap  type="UserMessageInfoDO" id="UserMessageInfoMap">
+		<result property="id"            column="id"/>
+		<result property="receiver"      column="receiver"/>
+		<result property="sender"        column="sender"/>
+		<result property="type"          column="type"/>
+		<result property="title"          column="title"/>
+		<result property="content"       column="content"/>
+		<result property="status"        column="status"/>
+		<result property="createTime"    column="create_time"/>
+	</resultMap>
+
+	<insert id="send" parameterType="UserMessageInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into user_message_info
+		(`receiver`,`sender`,`type`,`title`,`content`)
+		values
+		(#{receiver},#{sender},#{type},#{title},#{content})
+	</insert>
+
+	<insert id="batchSend" parameterType="java.util.List">
+		insert into user_message_info
+		(`receiver`,`sender`,`type`,`title`,`content`)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.receiver},#{item.sender},#{item.type},#{item.title},#{item.content})
+		</foreach>
+	</insert>
+
+	<select id="query" parameterType="java.util.Map" resultMap="UserMessageInfoMap">
+		SELECT * FROM user_message_info
+		WHERE receiver = #{receiver}
+		<if test="type != null">AND type = #{type}</if>
+		order by id desc
+		limit #{offset},#{size}
+	</select>
+
+	<select id="queryCount" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) FROM user_message_info
+		WHERE receiver = #{receiver}
+		and status = 0
+	</select>
+	
+	<update id="updateToRead" parameterType="java.lang.Integer">
+		update user_message_info SET status = 1 where id = #{id}
+	</update>
+</mapper>

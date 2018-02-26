@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>登录</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/expenditure.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/js/console/expenditure.js}"></script>
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/depend/echarts/echarts.min.js}"></script>
+</head>
+<body style="width: 100%;overflow-x: hidden">
+    <div class="body-main-title">管理员操作</div>
+    <div class="body-main-div">
+        <div style="width: 95%; margin: 30px auto;">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li>访问日志</li>
+                    <li>用户管理</li>
+                    <li>发布消息</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="body">
+                            <table class="account-apply-tab layui-table" id="log-all-user-info-tab">
+                                <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>操作</th>
+                                    <th>登录ip</th>
+                                    <th>地理位置</th>
+                                    <th>网络类型</th>
+                                    <th>最近登录时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="body">
+                            <table class="account-apply-tab layui-table" id="all-user-info-tab">
+                                <thead>
+                                <tr>
+                                    <th>序列号</th>
+                                    <th>用户名</th>
+                                    <th>角色及状态</th>
+                                    <th>权限控制</th>
+                                    <th>注册时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                       2
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/depend/layui/layui.js}"></script>
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        //…
+    });
+
+    layer.load();
+    $.ajax({
+        url: "/monitor/log/login.all",
+        type: "get",
+        data:{},
+        success: function (data) {
+            layer.closeAll();
+            var data = eval(data).data;
+            $("#log-all-user-info-tab").children("tbody").empty();
+            $.each(data, function (index, value) {
+                var tr = "<tr>"+
+                    "<td>"+value.pickName+"</td>"+
+                    "<td>"+value.typeStr+"</td>"+
+                    "<td>"+value.ipv4+"</td>"+
+                    "<td>"+value.address+"</td>"+
+                    "<td>"+value.netType+"</td>"+
+                    "<td>"+value.createTimeStr+"</td>";
+                $("#log-all-user-info-tab").children("tbody").append(tr);
+            })
+        }, error: function () {
+            layer.closeAll();
+            layer.msg("数据加载请求失败！");
+        }
+    })
+
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        laypage.render({
+            elem: 'page-account-application'
+            , count: 100
+            , theme: '#1E9FFF'
+        });
+    });
+
+    function loadAllUserInfo() {
+        layer.load();
+        $.ajax({
+            url: "/user/query.all",
+            type: "get",
+            data:{},
+            success: function (data) {
+                layer.closeAll();
+                var data = eval(data).data;
+                $("#all-user-info-tab").children("tbody").empty();
+                $.each(data, function (index, value) {
+                    var tr = "<tr>"+
+                        "<td>"+value.seqId+"</td>"+
+                        "<td>"+value.pickName+"</td>"+
+                        "<td>"+value.roleStr+"</td>"+
+                        "<td>";
+                    if (value.pickName == "管理员"){
+                        tr+= "该账号具有最高权限，任何人不能对其进行修改！";
+                    } else{
+                        if (value.roleStr == "管理员"){
+                            tr += "<button class=\"layui-btn layui-btn-xs layui-btn-danger\" onclick=\"updateRole('-1', '"+value.seqId+"')\">冻结账号</button>" +
+                                "<button class=\"layui-btn layui-btn-xs layui-btn-normal\" onclick=\"updateRole('0', '"+value.seqId+"')\">设为普通用户</button>" +
+                                "<button class=\"layui-btn layui-btn-xs layui-btn-warm\" onclick=\"deleteUser('"+value.seqId+"')\">删除用户信息</button></td>";
+                        } else if (value.roleStr == "普通用户"){
+                            tr += "<button class=\"layui-btn layui-btn-xs layui-btn-danger\" onclick=\"updateRole('-1', '"+value.seqId+"')\">冻结账号</button>" +
+                                "<button class=\"layui-btn layui-btn-xs layui-btn-normal\" onclick=\"updateRole('1', '"+value.seqId+"')\">升级为管理员</button>" +
+                                "<button class=\"layui-btn layui-btn-xs layui-btn-warm\" onclick=\"deleteUser('"+value.seqId+"')\">删除用户信息</button></td>";
+                        } else if (value.roleStr == "账号已冻结"){
+                            tr += "<button class=\"layui-btn layui-btn-xs\" onclick=\"updateRole('0', '"+value.seqId+"')\">冻结解冻</button>" +
+                                "<button class=\"layui-btn layui-btn-xs layui-btn-warm\" onclick=\"deleteUser('"+value.seqId+"')\">删除用户信息</button>";
+                        }
+                    }
+
+                    tr += "<td>"+value.createTimeStr+"</td></tr>";
+                    tr += "</tr>";
+                    $("#all-user-info-tab").children("tbody").append(tr);
+                })
+
+            }, error: function () {
+                layer.closeAll();
+                layer.msg("数据加载请求失败！");
+            }
+        })
+    }
+    loadAllUserInfo();
+
+    function updateRole(role, seqId){
+        layer.load();
+        $.ajax({
+            url: "/user/role/update",
+            type: "post",
+            data:{
+                "seq_id" : seqId,
+                "role" : role
+            },
+            success: function (data) {
+                layer.closeAll();
+                loadAllUserInfo();
+            }, error: function () {
+                layer.closeAll();
+                layer.msg("权限或状态修改失败！");
+            }
+        })
+    }
+
+    function deleteUser(seqId){
+        layer.load();
+        $.ajax({
+            url: "/user/delete",
+            type: "post",
+            data:{
+                "seq_id" : seqId
+            },
+            success: function (data) {
+                layer.closeAll();
+                loadAllUserInfo();
+            }, error: function () {
+                layer.closeAll();
+                layer.msg("删除失败！");
+            }
+        })
+    }
+
+</script>
+</html>

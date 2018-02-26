@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>平台使用说明书</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/usingBook.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+</head>
+<body style="width: 100%;overflow-x: hidden;">
+
+    <div class="use-desc-div">
+        <p class="use-desc-title">
+            <img th:src="@{/images/icon/descTitle.png}">
+        </p>
+        <p class="use-desc-title-level1"><b>一、 &nbsp;平台信息</b></p>
+        <p class="use-desc-title-content">平台名称：“钱呢”</p>
+        <p class="use-desc-title-content">网站域名：<a onclick="window.open('http://www.keyopen.cn')">http://www.keyopen.cn</a></p>
+        <p class="use-desc-title-content">平台性质：&nbsp;个人、家庭账务管理平台</p>
+        <p class="use-desc-title-content">当前版本：&nbsp;V1.0.0</p>
+        <p class="use-desc-title-content">研发团队：&nbsp;设计：@王琦&nbsp;&nbsp;&nbsp;&nbsp;后台：@王琦&nbsp;&nbsp;&nbsp;&nbsp;前端：@王琦&nbsp;&nbsp;&nbsp;&nbsp;测试：@王琦，@所有用户</p>
+        <p class="use-desc-title-level1"><b>二、 &nbsp;使用讲解</b></p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>如何访问</p>
+        <img th:src="@{/images/using/1.png}" style="width: 100%">
+        <p class="use-desc-content">打开浏览器，地址栏输入" http://www.keyopen.cn ",进入登录页面，然后注册账号。</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>登录/注册</p>
+        <img th:src="@{/images/using/2.png}" style="width: 100%">
+        <p class="use-desc-content">如果有账号，则直接登录。没有账单点击登录框下方注册文字，跳转到注册页面，填写基本信息。这里采用用户名注册方式，不需要绑定用户个人隐秘信息（如手机、邮箱、银行卡等），绝对的保证用户信息安全，但是”用户名不能重复“。注册成功前往登录页登录即可。</p>
+        <img th:src="@{/images/using/3.png}" style="width: 100%">
+        <p class="use-desc-content">如果在使用过程中有任何问题，或者好的建议，欢迎点击右上角意见反馈，添加站长微信提意。。我们的目标都是一致的：打造一个专业、简便的个人或家庭账务管理平台。</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>管理中心介绍</p>
+        <img th:src="@{/images/using/4.png}" style="width: 100%">
+        <p class="use-desc-content">登录成功后，跳转至后台管理中心。最上边导航栏包含：注册用户数量、个人消息、个人信息； 左侧服务选项列表包含：服务配置、个人资料管理、财务收入管理、财务支出管理、数据统计分析、动态标签配置、理财技巧及退出系统。同时左侧菜单栏可进行收缩，收缩后页面显示更大气，操作起来更加舒适，这个根据个人PC分辨率、操作习惯使用。</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>消息提示</p>
+        <img th:src="@{/images/using/5.png}" style="width: 100%">
+        <p class="use-desc-content">点击消息提示进入消息管理页，会默认显示10条最新消息内容，可点击右边未读文字切换状态到已读。同时支持按条件搜索。</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>个人信息、密码管理</p>
+        <img th:src="@{/images/using/6.png}" style="width: 100%">
+        <p class="use-desc-content">点击右上角用户“头像”，或者点击左侧”个人资料“菜单选项进入个人信息管理页面。分为两部分“基本信息展示”+“密码管理”。</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>账务收入管理</p>
+        <img th:src="@{/images/using/7.png}" style="width: 100%">
+        <p class="use-desc-content">点击左侧“账务收入”菜单选项进入账务收入管理页面。上面分类四块分别显示近7天、近一个月、近一年、全部的收入总额（同时支持点击，显示对应的收入明细），收入明细记录支持删除和编辑。</p>
+        <img th:src="@{/images/using/8.png}" style="width: 100%">
+        <p class="use-desc-content">点击黑色“资金入账/添加收入”按钮，弹出添加入账输入框，填写完成后（入账时间、入账类型、入账金额、入账描述），添加添加，数据自动更新</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>账务支出管理</p>
+        <img th:src="@{/images/using/9.png}" style="width: 100%">
+        <p class="use-desc-content">支出管理同收入管理操作一致</p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>统计分析</p>
+        <img th:src="@{/images/using/10.png}" style="width: 100%">
+        <p class="use-desc-content"></p>
+        <img th:src="@{/images/using/11.png}" style="width: 100%">
+        <p class="use-desc-content"></p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>动态标签配置</p>
+        <img th:src="@{/images/using/12.png}" style="width: 100%">
+        <p class="use-desc-content"></p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>理财干货</p>
+        <img th:src="@{/images/using/13.png}" style="width: 100%">
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>意见反馈</p>
+        <img th:src="@{/images/using/15.png}" style="width: 100%">
+        <p class="use-desc-content"></p>
+        <p class="use-desc-title-level2"><span class="icon layui-badge-dot layui-bg-cyan"></span>结束</p>
+        <img th:src="@{/images/using/14.png}" style="width: 100%">
+        <p class="use-desc-content">多多宣传，多多推荐，谢谢。</p>
+
+
+
+    </div>
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+
+</script>
+</html>

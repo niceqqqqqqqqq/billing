@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallserver.pfmp.dal.inter.MonitorIpv4InfoDao">
+	<resultMap  type="MonitorIpv4InfoDO"  id="MonitorIpv4InfoMap">
+		<result property="id"             column="id"/>
+		<result property="pickName"      column="pick_name"/>
+		<result property="seqId"        column="seq_id"/>
+		<result property="type"           column="type"/>
+		<result property="ipv4"           column="ipv4"/>
+		<result property="address"        column="address"/>
+		<result property="netType"        column="net_type"/>
+		<result property="createTime"     column="create_time"/>
+	</resultMap>
+
+	<insert id="addMonitor" parameterType="MonitorIpv4InfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into monitor_ipv4_info
+		(`pick_name`,`seq_id`,`type`,`ipv4`,`address`,`net_type`)
+		values
+		(#{pickName},#{seqId},#{type},#{ipv4},#{address},#{netType})
+	</insert>
+
+	<select id="queryLoginIp" parameterType="java.lang.String" resultMap="MonitorIpv4InfoMap">
+		SELECT * FROM monitor_ipv4_info
+		WHERE TYPE = 'login'
+		ORDER by id desc
+		limit 0,25
+	</select>
+
+	<select id="queryLogByLogin" parameterType="String" resultMap="MonitorIpv4InfoMap">
+		SELECT * FROM monitor_ipv4_info
+		WHERE 1=1
+		<if test="seqId != 'all'">
+			and seq_id = #{seqId}
+		</if>
+		ORDER BY create_time DESC;
+	</select>
+
+	<select id="existTwoHours" parameterType="Map" resultMap="MonitorIpv4InfoMap">
+		SELECT * FROM monitor_ipv4_info
+		WHERE TYPE = 'user'
+		and create_time > #{time}
+	</select>
+
+	<select id="queryUserIp" parameterType="java.lang.String" resultMap="MonitorIpv4InfoMap">
+		SELECT * FROM monitor_ipv4_info
+		WHERE TYPE = 'user'
+		ORDER by id desc
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,7 @@
+
+^squid:S1192"IDefine a constant instead of duplicating this literal "pickName" 6 times.(‰Â„›
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+=squid:S1604"(Make this anonymous inner class a lambda(ûâ
+=squid:S1604"(Make this anonymous inner class a lambda(ûâ
+=squid:S1604"(Make this anonymous inner class a lambda(ûâ
+•squid:S1160"{Refactor this method to throw at most one checked exception instead of: javax.servlet.ServletException, java.io.IOException(ş¯ÙÕıÿÿÿÿ

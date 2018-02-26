@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>消息管理</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/manager/message.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/bootstrap.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+    <style>
+        .account-apply-tab{
+            position: relative;
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body style="width: 100%">
+<div class="body-main-title">个人消息管理&nbsp;&nbsp;（<span style="color: red">*点击未读可切换至已读取状态</span>）</div>
+
+    <div class="body-main-div" style="width: 97%">
+            <div class="body-menu-btn-div layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <select id="status">
+                                <option value="2">全部</option>
+                                <option value="1">已读</option>
+                                <option value="0">未读</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select id="type">
+                                <option value="all">全部</option>
+                                <option value="system">资料更新</option>
+                                <option value="production">账单更新</option>
+                                <option value="production">系统消息</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input name="date" class="layui-input" id="startDate" type="text" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input name="date" class="layui-input" id="endDate" type="text" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date">
+                            </div>
+                        </div>
+                    </div>
+                    <button style="float: right;" class="layui-btn"><span class="icon-search"></span>&nbsp;&nbsp;搜索</button>
+                </div>
+                <!--内容-->
+                <div class="body">
+                    <table class="account-apply-tab layui-table" id="message-tab">
+                        <thead>
+                        <tr>
+                            <th>消息类型</th>
+                            <th>发送方</th>
+                            <th>消息主题</th>
+                            <th width="35%">消息内容</th>
+                            <th>时间</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!--分页-->
+                <div class="page-div">
+                    <div id="page-account-application"></div>
+                </div>
+            </div>
+    </div>
+
+<script th:src="@{/depend/layer/layer.js}"></script>
+<script th:src="@{/depend/layui/layui.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+    layer.load();
+    $.ajax({
+        url: "/msg/query/list",
+        type: "get",
+        data:{},
+        success: function (data) {
+            layer.closeAll();
+            var data = eval(data).data;
+            $("#message-tab").children("tbody").empty();
+            $.each(data, function (index, value) {
+                var tr = "<tr>"+
+                    "<td>"+value.type+"</td>"+
+                    "<td>"+value.sender+"</td>"+
+                    "<td>"+value.title+"</td>"+
+                    "<td>"+value.content+"</td>"+
+                    "<td>"+value.createTime+"</td>";
+                if (value.status == 1){
+                    tr += "<td>已读</td>";
+                } else {
+                    tr += "<td id=\"msg-status-"+value.id+"\"><a class=\"toRead\" value=\""+value.id+"\" style='color:blue'>未读</a></td>";
+                }
+                tr += "</tr>";
+                $("#message-tab").children("tbody").append(tr);
+            })
+            $(".toRead").on("click", function () {
+                var id = $(this).attr("value");
+                $.ajax({
+                    url: "/msg/update/read",
+                    type: "get",
+                    data:{
+                        "id":id
+                    },
+                    success: function (data) {
+                        $("#msg-status-"+id).html("已读");
+                    }
+                })
+            })
+        }, error: function () {
+            layer.closeAll();
+            layer.msg("数据加载请求失败！");
+        }
+    })
+
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        laypage.render({
+            elem: 'page-account-application'
+            , count: 100
+            , theme: '#1E9FFF'
+        });
+    });
+</script>
+</html>

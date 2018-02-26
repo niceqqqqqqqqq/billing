@@ -1,0 +1,353 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    text-align: center;
+}
+@media screen and (max-width: 1279px){
+    body{
+        text-align: center;
+        width:1281px;
+    }
+}
+.div-radius-3{
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.div-radius-6{
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+.icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+.icon-lr{
+    width: 20px;
+    height: 20px;
+    margin: 0px 15px;
+}
+.adv-div{
+    position: relative;
+    width: 1280px;
+    height: 100px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+.adv-left{
+    position: relative;
+    width: 950px;
+    float: left;
+    height: 100%;
+    background-color: white;
+}
+.adv-right{
+    position: relative;
+    width: 300px;
+    float: right;
+    height: 100%;
+    background-color: white;
+}
+a{
+    color: #343434;
+    text-decoration: none;
+}
+input, button, a, select, img, div{
+    outline:none;
+}
+button:hover, a:hover, select:hover{
+    cursor: pointer;
+}
+.left-right-layout{
+    position: relative;
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
+}
+.left-layout{
+    position: relative;
+    float: left;
+    width: 60%;
+}
+.right-layout{
+    position: relative;
+    float: right;
+    width: 38%;
+}
+.layout-model{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+}
+.layout-model-title{
+    position: relative;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: left;
+    text-indent: 1em;
+    color: #484848;
+    background-color: #ECF0EF;
+    border-bottom: 1px solid #fafafa;
+}
+.sort{
+    position: absolute;
+    right: 30px;
+    top: 13px;
+    color: #484848;
+    float: right;
+}
+.sort:hover{
+    cursor: pointer;
+    color: black;
+}
+.layout-model-content{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.more-right-top{
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    font-size: 20px;
+}
+.more-right-top:hover{
+    cursor: pointer;
+}
+.allDiv, .allWidth, .allHeight{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.allDiv{
+    width: 100%;
+    height: 100%;
+}
+.allWidth{
+    width: 100%;
+}
+.allHeight{
+    height: 100%;
+}
+.common-head-frame{
+    position: fixed;
+    border: 0px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 81px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px gray;
+    border: 0px;
+    overflow: hidden;
+}
+.master-input-sign{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 20px;
+    color: red;
+}
+.common-bottom-frame{
+    position: relative;
+    border: 0px;
+    margin-top: 100px;
+    height: 350px;
+    width: 100%;
+    overflow: hidden;
+}
+.close-model-div-btn{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.close-model-div-btn:hover{
+    cursor: pointer;
+    color: #ff7e56;
+}
+.model-title-div{
+    position: relative;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    font-size: 17px;
+}
+.body-div{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    padding: 0px;
+    background-color: white;
+    margin-bottom: 50px;
+}
+.left-body-div{
+    position: absolute;
+    left:0px;
+    top: 0px;
+    width: 850px;
+    height: auto;
+    min-height: 100%;
+    background-color: white;
+}
+.right-body-div{
+    position: absolute;
+    right:0px;
+    top: 0px;
+    width: 420px;
+    height: auto;
+    min-height: 100%;
+    background-color: white;
+}
+.main-img-div{
+    position: relative;
+    margin-top: 80px;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
+    background-color: #494d50;
+}
+.body-div-1280px{
+    position: relative;
+    width: 1280px;
+    height: 100%;
+    margin: 0px auto;
+}
+.small-menu{
+    float: left;
+    margin-right: 80px;
+}
+.small-menu:hover{
+    cursor: pointer;
+}
+.validCodeImg{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    width: 120px;
+}
+.body-main-div{
+    position: relative;
+    width: 100%;
+    margin: 10px auto;
+}
+.body-main-title{
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #1a1a1a;
+    text-align: left;
+    text-indent: 2em;
+    border-left: 4px solid #62a984;
+    background-color: #ECF0EF;
+}
+.body-menu-btn-div{
+    width: 100%;
+    height: 60px;
+    margin: 10px auto;
+    text-align: left;
+}
+.page-div{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    margin-top: 30px;
+}
+.menu-top-btn{
+    float: left;
+    margin: 10px 20px 0px 50px;
+    border: 0px;
+    color: #454545;
+    font-size: 13px;
+    padding: 0px 25px;
+    height: 50px;
+    background-color: white;
+    border-bottom: 1px solid #c4c4c4;
+}
+.print-icon{
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+}
+.print-icon:hover{
+    cursor: pointer;
+}
+.menuBody{
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    display: none;
+}
+
+/*高德地图样式*/
+.info-title{
+    color: white;
+    font-size: 14px;
+    background-color: rgba(0,155,255,0.8);
+    line-height: 26px;
+    padding: 0px 0 0 6px;
+    font-weight: lighter;
+    letter-spacing: 1px
+}
+.info-content{
+    padding: 4px;
+    color: #666666;
+    line-height: 23px;
+}
+.info-content img{
+    float: left;
+    margin: 3px;
+}
+.tab-thead{
+    position: relative;
+    width: 100%;
+}
+.tab-tbody{
+}
+.tab-tbody tr{
+    border-bottom: 1px solid #7b7bff;
+}
+.tab-tbody td{
+    text-align: left;
+    background-color: white;
+    color: #333333;
+    height: 35px;
+    line-height: 35px;
+}
+.tab-thead tr{
+    height: 70px;
+    line-height: 70px;
+    border-bottom: 1px solid #7b7bff;
+}
+.tab-thead tr th{
+    background-color: white;
+    color: #3a21ff;
+}
+.notice-div{
+    width: 90%;
+    padding: 13px 30px;
+    line-height: 30px;
+    color: #343434;
+    background-color: #fafafa;
+    border: 1px dashed #b1b1b1;
+    border-radius: 3px;
+    text-align: left;
+}
+.system-notice-div{
+    position: relative;
+    margin: 0px auto;
+    top:0;
+    padding: 10px 20px;
+    background-color: #fe817b;
+    border-radius: 3px;
+    color: white;
+}

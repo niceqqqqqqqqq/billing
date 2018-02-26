@@ -1,0 +1,94 @@
+.head-div{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+}
+.photo{
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+}
+.body-iframe{
+    position: absolute;
+    top: 70px;
+    left: 210px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow-y: hidden;
+    border-right: 5px solid #ECF0EF;
+    overflow-x: hidden;
+}
+.menu-div{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    background-color: #363636;
+    overflow: hidden;
+}
+.menuDiv{
+    position: absolute;
+    left: 37px;
+    width: 160px;
+    top: 100px;
+    color: white;
+    text-align: left;
+}
+.menuDiv p{
+    margin-bottom: 20px;
+}
+.menuDiv p:hover{
+    cursor: pointer;
+    color: #1cb0ae;
+}
+.menu-icon{
+    font-size: 20px;
+    margin-right: 25px;
+}
+.head-info-div{
+    position: relative;
+    float: right;
+    line-height: 60px;
+    margin-right: 50px;
+}
+.logo-div{
+    position: relative;
+    top: 0px;
+    height: 60px;
+    border-bottom: 1px solid #5b5b5b;
+    color: white;
+    font-size: 20px;
+    text-indent: 20px;
+    text-align: left;
+    line-height: 60px;
+}
+.menu-btn-div{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid #5b5b5b;
+    color: white;
+    font-size: 20px;
+    display: none;
+}
+.toggle-menu-btn, .toggle-menu-btn2{
+    position: absolute;
+    right: 15px;
+    top: 23px;
+    font-size: 18px;
+}
+.toggle-menu-btn2{
+    right: 38px;
+}
+.toggle-menu-btn:hover, .toggle-menu-btn2:hover{
+    cursor: pointer;
+}
+

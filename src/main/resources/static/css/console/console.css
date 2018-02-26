@@ -1,0 +1,85 @@
+.monitor-index-div{
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+    height: 90px;
+    padding: 0px 0px 10px 10px;
+}
+.monitor-index-show-div{
+    position: relative;
+    width: 18%;
+    height: 80px;
+    overflow: hidden;
+    float: left;
+    margin: 10px 2% 10px 0px;
+}
+.monitor-index-show-div:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.monitor-index-data-div{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 55%;
+    height: 70px;
+}
+.monitor-index-sign-div{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 45%;
+    height: 100%;
+}
+.monitor-index-sign-p{
+    color: white;
+    font-size: 20px;
+    line-height: 70px;
+}
+.monitor-index-data-p{
+    color: #f7f7f7;
+    font-size: 14px;
+    line-height: 25px;
+    margin-top: 10px;
+    margin-left: -10px;
+}
+.monitor-text-output-p{
+    width: 95%;
+    margin: 5px auto;
+    font-size: 13px;
+    color: #212121;
+    text-align: left;
+}
+.api-monitor-line{
+    position: relative;
+    width: 90%;
+    margin: 5px auto;
+    height: 30px;
+    line-height: 30px;
+}
+.apiName-div{
+    float: left;
+    width: 48%;
+    text-align: left;
+}
+.api-monitor-line:hover{
+    cursor: pointer;
+    color: #d80000;
+}
+.apiNum-div{
+    float: right;
+    width: 48%;
+    text-align: left;
+}
+.income-details-div{
+    position: relative;
+    float: left;
+    width: 65%;
+    height: 300px;
+}
+.income-details-div2 {
+    position: relative;
+    float: right;
+    width: 35%;
+    height: 300px;
+}

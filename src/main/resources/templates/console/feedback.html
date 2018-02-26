@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>意见反馈</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/console/feedback.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+</head>
+<body style="width: 100%;overflow-x: hidden; background: transparent">
+    <div class="body-main-title">意见反馈</div>
+    <div class="body-main-div">
+        <div class="feedback-content-div">
+            <div class="layui-form" style="margin-left: -50px">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型：</label>
+                    <div class="layui-input-block">
+                        <select id="type">
+                            <option value="question" selected="">我要反馈问题</option>
+                            <option value="idea">我有好主意</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">正文：</label>
+                    <div class="layui-input-block">
+                        <textarea class="layui-textarea" id="content"></textarea>
+                    </div>
+                </div>
+                <p><button class="layui-btn layui-btn-warm" id="add-feedback-btn" style="float: right">提交</button></p>
+            </div>
+            <div class="feedBackContent-div" id="feedBackContent-div"></div>
+        </div>
+        <div class="feedback-content-div2">
+            <div>
+                <img th:src="@{/images/default/ewm.PNG}" style="width: 150px">
+                <p style="line-height: 40px">有更多的建议和想法添加站长微信<br/>验证信息填写“钱呢，意见反馈”</p>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/depend/layui/layui.js}"></script>
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/console/feedback.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</body>
+<script>
+
+</script>
+</html>

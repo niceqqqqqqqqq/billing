@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallserver.pfmp.dal.inter.UserInfoDao">
+	<resultMap  type="UserInfoDO"     id="UserInfoMap">
+		<result property="id"            column="id"/>
+		<result property="status"        column="status"/>
+		<result property="seqId"         column="seq_id"/>
+		<result property="pickName"      column="pick_name"/>
+		<result property="password"      column="password"/>
+		<result property="mobile"        column="mobile"/>
+		<result property="photo"         column="photo"/>
+		<result property="email"         column="email"/>
+		<result property="role"         column="role"/>
+		<result property="createTime"    column="create_time"/>
+	</resultMap>
+
+	<insert id="create" parameterType="UserInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into user_info
+		(`seq_id`,`pick_name`,`password`,`mobile`,`photo`,`status`,`role`,`email`)
+		values
+		(#{seqId},#{pickName},#{password},#{mobile},#{photo},0,0,#{email})
+	</insert>
+
+	<select id="queryByPickName" parameterType="UserInfoDO" resultMap="UserInfoMap">
+		SELECT * FROM user_info
+		WHERE pick_name = #{pickName}
+		limit 1
+	</select>
+
+	<select id="existEmail" parameterType="String" resultMap="UserInfoMap">
+		SELECT * FROM user_info
+		WHERE email = #{email}
+		limit 1
+	</select>
+
+	<select id="queryCount" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) FROM user_info
+	</select>
+
+	<select id="queryAll" resultMap="UserInfoMap">
+		SELECT * FROM user_info
+	</select>
+
+	<update id="updatePassword" parameterType="UserInfoDO">
+		UPDATE  user_info
+		SET  password = #{password}
+		where pick_name = #{pickName}
+	</update>
+
+	<update id="updateEmail" parameterType="UserInfoDO">
+		UPDATE  user_info
+		SET  email = #{email}
+		where pick_name = #{pickName}
+	</update>
+
+	<update id="updateRoleBySeqId" parameterType="java.util.Map">
+		UPDATE  user_info
+		SET  role = #{role}
+		where seq_id = #{seqId}
+	</update>
+
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM user_info
+		where seq_id = #{seqId}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>钱呢，注册</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/common/login.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/layui/css/layui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/depend/bootstrap3/css/font-awesome.min.css}">
+    <script th:src="@{/depend/jquery-3.2.1.min.js}"></script>
+</head>
+<body>
+
+   <div class="headDiv">
+       <img th:src="@{/images/logo.png}" class="logo">
+       <button class="feedback-btn layui-btn layui-btn-primary layui-btn-sm"><span class="icon icon-comments-alt"></span>意见反馈</button>
+       <a href="/to/mobile/download"><button class="app-download layui-btn layui-btn-primary layui-btn-sm"><span class="icon icon-mobile-phone"></span>手机APP下载</button></a>
+   </div>
+   <div class="bgDiv" style="height: 600px">
+       <img th:src="@{/images/bg/regist.jpg}" class="allWidth">
+       <img th:src="@{/images/bg/model.png}" class="allDiv">
+       <div class="content-div">
+           <p><b>个人、家庭账务管理平台</b></p>
+           <p style="font-size: 17px">一键注册、永久免费使用，快来体验吧</p>
+           <p><a onclick="window.open('/to/console/usingBook')"><button class="layui-btn layui-btn-lg layui-btn-normal">查看《平台使用说明书》</button></a></p>
+       </div>
+       <div class="loginDiv" style="height: 550px">
+           <div class="model-title-div">免费注册</div>
+           <div class="login-input-div">
+               <span class="login-input-icon icon-user"></span>
+               <input type="text" class="login-input" id="pickName" placeholder="请输入用户名">
+           </div>
+           <div class="login-input-div">
+               <span class="login-input-icon icon-lock"></span>
+               <input type="password" class="login-input" id="password" placeholder="请输入密码">
+           </div>
+           <div class="login-input-div">
+               <span class="login-input-icon icon-lock"></span>
+               <input type="password" class="login-input" id="password2" placeholder="确认密码">
+           </div>
+           <div class="login-input-div">
+               <span class="login-input-icon icon-envelope"></span>
+               <input type="text" class="login-input" id="email" placeholder="绑定邮箱">
+           </div>
+           <div class="login-input-div">
+               <span class="login-input-icon icon-picture"></span>
+               <input type="text" class="login-input" id="checkCode" placeholder="请输入验证码">
+               <button class="getEmailCode-btn" id="getRedEmailCode-Btn">获取验证码</button>
+           </div>
+           <div class="login-input-div" style="border: 0px">
+              <button class="request-regist-btn" id="register-btn">免费注册</button>
+           </div>
+           <div class="login-input-div" style="border: 0px;border-bottom: 1px solid #ebebeb;height: 20px;"></div>
+           <div class="login-input-div" style="border: 0px">
+               <a href="/to/common/login"><button class="request-register-num-btn">有账号，直接去登录</button></a>
+           </div>
+       </div>
+   </div>
+   <div class="bottomDiv">
+       个人站长版权所有，如有改进意见或使用过程中遇到任何问题可点击右上角“问题反馈”添加站长微信反馈,验证信息填写"钱呢：个人用户名"。
+   </div>
+    <script th:src="@{/depend/layer/layer.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <script th:src="@{/js/common/regist.js}"></script>
+</body>
+<script>
+
+</script>
+</html>
